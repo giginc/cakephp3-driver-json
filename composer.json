@@ -21,7 +21,7 @@
         "psr-4": {
             "Giginc\\Csv\\": "src/",
             "Giginc\\Csv\\Test\\": "tests/",
-            "Nahid\JsonQ\\": "./vendor/nahid/jsonq/src/"
+            "Nahid\\JsonQ\\": "./vendor/nahid/jsonq/src/"
         }
     }
 }
