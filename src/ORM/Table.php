@@ -25,7 +25,7 @@ class Table extends CakeTable
         if (!$driver instanceof Json) {
             throw new Exception("Driver must be an instance of 'Giginc\Json\Database\Driver\Json'");
         }
-        $json = $driver->getConnection();
+        $json = $driver->getConnection($this->getTable());
 
         return $json;
     }

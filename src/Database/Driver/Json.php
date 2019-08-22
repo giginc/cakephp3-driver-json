@@ -46,7 +46,7 @@ class Json
      *
      */
     protected $_baseConfig = [
-        'path' => '', // local path on the server relative to WWW_ROOT
+        'baseDir' => '', // local path on the server relative to WWW_ROOT
     ];
 
     /**
@@ -82,17 +82,18 @@ class Json
      * @return bool
      * @access public
      */
-    public function connect()
+    public function connect($name)
     {
         try {
-            if (file_exists($this->_config['path'])) {
-                if (($this->_json = new Jsonq($this->_config['path'])) === false) {
-                    trigger_error("Could not open file.{$this->_config['path']}");
+            $path = realpath($this->_config['baseDir']). DIRECTORY_SEPARATOR. $name. ".json";
+            if (file_exists($path)) {
+                if (($this->_json = new Jsonq($path)) === false) {
+                    trigger_error("Could not open file.{$path}");
 
                     return false;
                 }
             } else {
-                trigger_error("The specified file was not found.{$this->_config['path']}");
+                trigger_error("The specified file was not found.{$path}");
 
                 return false;
             }
@@ -110,10 +111,10 @@ class Json
      *
      * @access public
      */
-    public function getConnection()
+    public function getConnection($name)
     {
         if (!$this->isConnected()) {
-            $this->connect();
+            $this->connect($name);
         }
 
         return $this->_json;

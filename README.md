@@ -19,7 +19,7 @@ Now, you need to set the connection in your config/app.php file:
     'default' => [
         'className' => 'Giginc\Json\Database\Connection',
         'driver' => 'Giginc\Json\Database\Driver\Json',
-        'path' => './data/file.json', // local path on the server relative to WWW_ROOT
+        'baseDir' => './data/', // local path on the server relative to WWW_ROOT
     ],
 ],
 ```
@@ -33,6 +33,19 @@ After that, you need to load Giginc\Json\ORM\Table in your tables class:
 use Giginc\Json\ORM\Table;
 
 class CategoriesTable extends Table {
+
+    /**
+     * Initialize method
+     *
+     * @param array $config The configuration for the Table.
+     * @return void
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        $this->setTable('categories'); // load file is WWW_ROOT./data/categories.json
+    }
 
 }
 ```
