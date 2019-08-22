@@ -31,6 +31,16 @@ class Table extends CakeTable
     }
 
     /**
+     * Creates a new Query instance for a table.
+     *
+     * @return \Cake\ORM\Query
+     */
+    public function query()
+    {
+        return $this->_getConnection();
+    }
+
+    /**
      * always return true because Json is schemaless
      *
      * @param string $field
@@ -51,9 +61,10 @@ class Table extends CakeTable
      * @access public
      * @throws \Exception
      */
-    public function find($type = 'all', $options = [])
+    public function find($type = '.', $options = [])
     {
-        return false;
+        $query = $this->query();
+        return $query->find($type);
     }
 
     /**
@@ -67,12 +78,8 @@ class Table extends CakeTable
      */
     public function get($primaryKey, $options = [])
     {
-         $json = $this->_getConnection();
-         if (isset($json[$primaryKey])) {
-             return $json[$primaryKey];
-         }
-
-        return false;
+        $query = $this->query();
+        return $query->find($primaryKey);
     }
 
     /**
