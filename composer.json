@@ -20,7 +20,8 @@
     "autoload": {
         "psr-4": {
             "Giginc\\Csv\\": "src/",
-            "Giginc\\Csv\\Test\\": "tests/"
+            "Giginc\\Csv\\Test\\": "tests/",
+            "Nahid\JsonQ\\": "./vendor/nahid/jsonq/src/"
         }
     }
 }

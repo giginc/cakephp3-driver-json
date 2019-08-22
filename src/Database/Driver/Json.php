@@ -3,6 +3,7 @@
 namespace Giginc\Json\Database\Driver;
 
 use Exception;
+use Nahid\JsonQ\Jsonq;
 
 class Json
 {
@@ -31,10 +32,7 @@ class Json
      * @var File
      * @access protected
      */
-    protected $_file = null;
-
-
-    protected $_fileHeader  = null;
+    protected $_json = null;
 
     /**
      * Base Config
@@ -49,9 +47,6 @@ class Json
      */
     protected $_baseConfig = [
         'path' => '', // local path on the server relative to WWW_ROOT
-        'delimiter' => ',',
-        'length' => 1000,
-        'headerRow' => 0,
     ];
 
     /**
@@ -91,7 +86,7 @@ class Json
     {
         try {
             if (file_exists($this->_config['path'])) {
-                if (($this->_file = fopen($this->_config['path'], "r+")) === false) {
+                if (($this->_json = new Jsonq($this->_config['path'])) === false) {
                     trigger_error("Could not open file.{$this->_config['path']}");
 
                     return false;
@@ -121,7 +116,7 @@ class Json
             $this->connect();
         }
 
-        return $this->_file;
+        return $this->_json;
     }
 
     /**
@@ -133,9 +128,7 @@ class Json
     public function disconnect()
     {
         if ($this->connected) {
-            fclose($this->_file);
-
-            unset($this->_file, $this->connection);
+            unset($this->_json, $this->connection);
 
             return !$this->connected;
         }

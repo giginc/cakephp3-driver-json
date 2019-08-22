@@ -11,18 +11,7 @@ use Giginc\Json\Database\Driver\Json;
 
 class Table extends CakeTable
 {
-    protected $_fileLength = 1000;
-
-    protected $_delimiter = ',';
-
-    protected $_schemaRow = 0;
-
-    /**
-     * The schema object containing a description of this table fields
-     *
-     * @var \Cake\Database\Schema\TableSchema
-     */
-    protected $_schema;
+    protected $_query;
 
     /**
      * return Json file
@@ -36,48 +25,9 @@ class Table extends CakeTable
         if (!$driver instanceof Json) {
             throw new Exception("Driver must be an instance of 'Giginc\Json\Database\Driver\Json'");
         }
-        $file = $driver->getConnection();
+        $json = $driver->getConnection();
 
-        return $file;
-    }
-
-    /**
-     * Returns the schema table object describing this table's properties.
-     *
-     * @return \Cake\Database\Schema\TableSchema
-     */
-    public function getSchema()
-    {   
-        if ($this->_schema === null) {
-            $file = $this->_getConnection();
-
-            $row = 0;
-            while (($data = fgetcsv($file, $this->_fileLength, $this->_delimiter)) !== FALSE) {
-                if ($row == $this->_schemaRow) {
-                    $this->_schema = $data;
-                    return $this->_schema;
-                }
-                $row++;
-            }
-        }
-    }
-
-    /**
-     * Sets the schema table object describing this table's properties.
-     *
-     * If an array is passed, a new TableSchema will be constructed
-     * out of it and used as the schema for this table.
-     *
-     * @param array|\Cake\Database\Schema\TableSchema $schema Schema to be used for this table
-     * @return $this
-     */
-    public function setSchema($schema)
-    {   
-        if (is_array($schema)) {
-            $this->_schema = $schema;
-        }
-        
-        return $this;
+        return $json;
     }
 
     /**
@@ -117,18 +67,9 @@ class Table extends CakeTable
      */
     public function get($primaryKey, $options = [])
     {
-         $file = $this->_getConnection();
-         $schema = $this->getSchema();
-         $row = 0;
-         $response = [];
-         while (($data = fgetcsv($file, $this->_fileLength, $this->_delimiter)) !== FALSE) {
-             if (isset($data[$this->_primaryKey]) && $data[$this->_primaryKey] == $primaryKey) {
-                 foreach ($schema as $key => $value) {
-                     $response[$value] = $data[$key];
-                 }
-                 return $response;
-             }
-             $row++;
+         $json = $this->_getConnection();
+         if (isset($json[$primaryKey])) {
+             return $json[$primaryKey];
          }
 
         return false;
