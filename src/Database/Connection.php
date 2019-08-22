@@ -117,7 +117,7 @@ class Connection extends \Cake\Database\Connection
     }
 
     /**
-     * Csv doesn't support transaction
+     * Json doesn't support transaction
      *
      * @param callable $transaction
      * @return false
@@ -129,7 +129,7 @@ class Connection extends \Cake\Database\Connection
     }
 
     /**
-     * Csv doesn't support foreign keys
+     * Json doesn't support foreign keys
      *
      * @param callable $operation
      * @return false
