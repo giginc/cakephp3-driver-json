@@ -11,7 +11,7 @@
         "nahid/jsonq": "^5.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.0"
+        "phpunit/phpunit": "^5.7|^6.0"
     },
     "license": "MIT",
     "authors": [
