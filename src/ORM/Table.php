@@ -64,7 +64,7 @@ class Table extends CakeTable
     public function find($type = '.', $options = [])
     {
         $query = $this->query();
-        return $query->find($type);
+        return $query->from($type);
     }
 
     /**
