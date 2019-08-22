@@ -8,12 +8,7 @@ An Json datasource for CakePHP 3.5
 Install [composer](http://getcomposer.org) and run:
 
 ```bash
-composer require giginc/mongodb 1.0.0
-```
-
-```php
-Plugin::load('Giginc/Json');
-
+composer require giginc/cakephp3-driver-json
 ```
 
 ## Defining a connection
