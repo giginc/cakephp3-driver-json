@@ -19,7 +19,7 @@ Now, you need to set the connection in your config/app.php file:
     'default' => [
         'className' => 'Giginc\Json\Database\Connection',
         'driver' => 'Giginc\Json\Database\Driver\Json',
-        'baseDir' => './data/', // local path on the server relative to WWW_ROOT
+        'baseDir' => './', // local path on the server relative to WWW_ROOT
     ],
 ],
 ```
@@ -44,7 +44,7 @@ class CategoriesTable extends Table {
     {
         parent::initialize($config);
 
-        $this->setTable('categories'); // load file is WWW_ROOT./data/categories.json
+        $this->setTable('categories'); // load file is WWW_ROOT/categories.json
     }
 
 }
@@ -66,7 +66,7 @@ use App\Controller\AppController;
  */
 class PagesController extends AppController
 {
-    /** {{{ index
+    /**
      * Index method
      *
      * @return \Cake\Http\Response|void
@@ -79,7 +79,6 @@ class PagesController extends AppController
             ->get()
             ;
     }
-    // }}}
 }
 ```
 
